@@ -5,59 +5,50 @@
 ### Konfigurationsdatei
 **Pfad:** `/Users/sbo/.claude.json`
 
-### Aktuelle MCP Server (12 Server)
+### Aktuelle MCP Server (14 Server)
 
 ```json
 {
   "mcpServers": {
-    "memory": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-memory"]
-    },
-    "fetch": {
-      "command": "uvx",
-      "args": ["mcp-server-fetch"]
-    },
-    "time": {
-      "command": "uvx",
-      "args": ["mcp-server-time", "--local-timezone", "Europe/Berlin"]
-    },
-    "brave-search": {
-      "command": "npx",
-      "args": ["-y", "brave-search-mcp"],
+    "github": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "GITHUB_PERSONAL_ACCESS_TOKEN",
+        "ghcr.io/github/github-mcp-server"
+      ],
       "env": {
-        "BRAVE_API_KEY": "YOUR_BRAVE_API_KEY"
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "YOUR_GITHUB_TOKEN"
       }
     },
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp@latest"]
+    },
+    "memory": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"],
+      "env": {
+        "MEMORY_STORE_PATH": "/Users/sbo/claude_memory.json"
+      }
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/Users/sbo/"]
+    },
+    "desktop-commander": {
+      "command": "npx",
+      "args": ["-y", "@wonderwhy-er/desktop-commander@latest"]
+    },
     "ssh": {
-      "type": "stdio",
-      "command": "/Users/sbo/.nvm/versions/node/v22.12.0/bin/npx",
+      "command": "npx",
       "args": ["-y", "@idletoaster/ssh-mcp-server@latest"],
       "env": {
         "SSH_PRIVATE_KEY": "/Users/sbo/.ssh/id_rsa"
       }
-    },
-    "consult7": {
-      "type": "stdio",
-      "command": "uvx",
-      "args": ["consult7", "openrouter", "YOUR_OPENROUTER_API_KEY"],
-      "env": {}
-    },
-    "context7": {
-      "type": "http",
-      "url": "https://mcp.context7.com/mcp"
-    },
-    "chrome-devtools": {
-      "type": "stdio",
-      "command": "npx",
-      "args": ["-y", "chrome-devtools-mcp@latest"],
-      "env": {}
-    },
-    "playwright": {
-      "type": "stdio",
-      "command": "npx",
-      "args": ["-y", "@playwright/mcp@latest"],
-      "env": {}
     },
     "zen": {
       "type": "stdio",
@@ -70,13 +61,36 @@
         "CUSTOM_ALLOWED_MODELS": "qwen3:235b,qwen2.5:14b,deepseek-r1:32b,qwen3-coder:30b,llama3.2-vision:latest"
       }
     },
-    "github": {
-      "type": "stdio",
+    "jetbrains": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "args": ["-y", "@jetbrains/mcp-proxy"]
+    },
+    "brave-search": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-brave-search"],
       "env": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": "YOUR_GITHUB_TOKEN_HERE"
+        "BRAVE_API_KEY": "YOUR_BRAVE_API_KEY"
       }
+    },
+    "puppeteer": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-puppeteer"]
+    },
+    "sequential-thinking": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"]
+    },
+    "drawio-azure": {
+      "command": "npm",
+      "args": ["start"],
+      "cwd": "/Users/sbo/drawio-azure-mcp-server",
+      "env": {
+        "NODE_ENV": "production"
+      }
+    },
+    "web-search": {
+      "command": "npx",
+      "args": ["-y", "@anthropic-ai/mcp-web-search"]
     },
     "git": {
       "type": "stdio",
